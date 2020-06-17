@@ -1,0 +1,17 @@
+{%extends 'recap/base.html' %}
+{%block navbr%}
+<li class="nav-item active">
+    <a class="nav-link" href="/logout">Logout</a>
+</li>
+{%endblock%}
+{%block body%}
+<div class="container my-4">
+    <div class="card" >
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Name: {{user.first_name}}&nbsp;{{user.last_name}}</li>
+            <li class="list-group-item">Email: {{user.email}}</li>
+            <li class="list-group-item">Phone: {{user.phone}}</li>
+        </ul>
+    </div>
+</div>
+{%endblock%}

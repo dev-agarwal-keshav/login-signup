@@ -1,0 +1,71 @@
+{%extends 'recap/base.html' %}
+{% load socialaccount %}
+{% providers_media_js %}
+
+{%block navbr%}
+<li class="nav-item ">
+    <a class="nav-link" href="/">Login</a>
+</li>
+<li class="nav-item active">
+    <a class="nav-link" href="/signuppage">Signup</a>
+</li>
+{%endblock%}
+{%block body%}
+
+<div class="container my-4">
+    <form action="/signup" method="post" name="form1">{%csrf_token%}
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="first_name">First Name</label>
+                <input type="text" class="form-control" id="first_name" placeholder="First Name" name="first_name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="last_name">Last Name</label>
+                <input type="text" class="form-control" id="last_name" placeholder="Last Name" name="last_name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email" required name="email">
+        </div>
+        <div class="form-group">
+            <label for="phoneNum">Phone</label>
+            <input type="tel" class="form-control" id="phoneNum" placeholder="Enter your phone" required name="phone">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required >
+        </div>
+        <div class="form-group">
+            <label for="password">Confirm Password</label>
+            <input type="password" class="form-control" id="conf_pass"  name="confirm_password" placeholder="Confirm Password" required >
+        </div>
+        <div class="g-recaptcha" data-sitekey="6LdodKUZAAAAAMFum6P-z1QJB_eTh4-NH29IgiSx"></div>
+        <button type="submit" class="btn btn-primary my-2" onclick="ValidateEmail(document.form1.email)">Sign Up</button>
+    </form>
+    <div>
+        <a href="{% provider_login_url 'facebook' method='oauth2' %}" class="btn btn-outline-primary my-2 " style="background-color: white;"><img src="/media/fb.png" style="width: 60px; height: 60px; ">
+            Login with Facebook
+        </a>
+    
+        <a href="{% provider_login_url 'google' method='oauth2' %}"><button class="btn btn-outline-primary my-2 ml-2" style="background-color: white;"><img src="/media/google.png" style="width: 60px; height: 60px; ">
+                Login with Google</button>
+        </a>
+    </div>
+</div>
+{%block js%}
+<script>
+function ValidateEmail(inputText) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (inputText.value.match(mailformat)) {
+        document.form1.email.focus();
+        return true;
+    } else {
+        alert("You have entered an invalid email address!");
+        document.form1.email.focus();
+        return false;
+    }
+}
+</script>
+{%endblock%}
+{%endblock%}
